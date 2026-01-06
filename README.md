@@ -42,5 +42,3 @@ It is the operating system for human behavior.
 ---
 
 
-* Rewrite it for a **pitch deck or Notion doc**
-* Align it with **metrics investors care about (retention, LTV, wedge strategy)**

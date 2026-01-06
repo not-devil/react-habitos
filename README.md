@@ -1,17 +1,16 @@
 
 ## HabitOS
 
-HabitOS is an early-stage habit system design platform that helps people build good habits and quit bad ones by redesigning their environment, daily micro-actions, and accountability—rather than relying on motivation or willpower.
+HabitOS is an early-stage behavior design platform focused on helping people build lasting habits and quit harmful ones by redesigning their environment, daily actions, and accountability systems. Unlike traditional habit trackers that rely on motivation and streaks, HabitOS applies first-principles behavioral design to make consistency automatic and sustainable.
 
-This repository contains the initial landing page and backend scaffolding used for market validation and early experimentation.
+This repository contains the initial landing experience and backend foundation used for market validation and early product development.
 
 ---
 
-If you want it:
+If you want, I can also:
 
-* **More startup / investor tone**
-* **More technical tone**
-* **More marketing / landing-page tone**
-* **Ultra-minimal (2 lines)**
+* Tighten this to a **1-sentence founder pitch**
+* Rewrite it for **VC decks**
+* Add a **Problem → Solution → Differentiation** README section
 
-tell me which style and I’ll refine it.
+Just tell me 👍

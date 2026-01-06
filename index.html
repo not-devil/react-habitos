@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="HabitOS helps you design your environment, daily actions, and accountability systems so habits become automatic — not exhausting.  Join the waitlist today.">
+    <title>HabitOS — The Operating System for Human Behavior (React)</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="keywords"
+        content="habits, behavior design, habit tracking, accountability, habit system, quit bad habits, React">
+    <meta name="author" content="HabitOS">
+    <meta property="og:title" content="HabitOS — The Operating System for Human Behavior">
+    <meta property="og:description"
+        content="Build habits that stick — without motivation, guilt, or burnout. HabitOS designs systems for lasting change.">
+    <meta property="og:type" content="website">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- React & ReactDOM via CDN (v18) -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+    <!-- Babel Standalone for JSX transformation -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <!-- All React Components Inline -->
+    <script type="text/babel">
+        // Navbar Component
+        const Navbar = ({ onNavigate }) => {
+            const [scrolled, setScrolled] = React.useState(false);
+
+            React.useEffect(() => {
+                const handleScroll = () => {
+                    setScrolled(window.pageYOffset > 50);
+                };
+
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            return (
+                <nav className={scrolled ? 'scrolled' : ''}>
+                    <div className="nav-container">
+                        <a href="#" className="logo" onClick={(e) => {
+                            e.preventDefault();
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                        }}>
+                            HabitOS
+                        </a>
+                        <button className="nav-cta" onClick={() => onNavigate('waitlist')}>
+                            Join Waitlist
+                        </button>
+                    </div>
+                </nav>
+            );
+        };
+
+        // Hero Component
+        const Hero = ({ onNavigate }) => {
+            const SURVEY_LINK = "https://forms.gle/W82YgF5DjgALfWon9";
+
+            return (
+                <section className="hero" id="hero">
+                    <div className="container-narrow">
+                        <h1>Build Habits That Stick — Without Motivation, Guilt, or Burnout</h1>
+                        <p className="subheadline">
+                            HabitOS helps you design your environment, daily actions, and accountability systems so habits become automatic — not exhausting.
+                        </p>
+                        <div className="cta-group">
+                            <button className="btn btn-primary" onClick={() => onNavigate('waitlist')}>
+                                Join the Waitlist
+                            </button>
+                            <button className="btn btn-secondary" onClick={() => onNavigate('how-it-works')}>
+                                See How HabitOS Works
+                            </button>
+                            <button
+                                className="btn btn-secondary"
+                                style={{ borderColor: 'var(--color-accent-sage)', color: 'var(--color-accent-sage-dark)', marginLeft: '10px' }}
+                                onClick={() => window.open(SURVEY_LINK, '_blank')}
+                            >
+                                📋 Take Our Survey
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // Problem Component
+        const Problem = () => {
+            return (
+                <section className="problem-section" id="problem">
+                    <div className="container-narrow">
+                        <div className="section-header">
+                            <h2 className="section-title">Why Habit Apps Fail</h2>
+                            <p className="section-subtitle">
+                                Most people don't fail at habits because they are lazy or undisciplined.
+                                They fail because the <em>system around them</em> is broken.
+                            </p>
+                        </div>
+
+                        <h3 className="mb-6">What actually goes wrong:</h3>
+                        <ul className="problem-list">
+                            <li className="problem-item">
+                                You wake up knowing <em>what you want</em>, but not <strong>what exact action to take today</strong>
+                            </li>
+                            <li className="problem-item">
+                                Your <strong>environment works against you</strong> (phone, food, distractions, friction)
+                            </li>
+                            <li className="problem-item">
+                                Motivation fades — and willpower can't be trusted daily
+                            </li>
+                            <li className="problem-item">
+                                Accountability feels awkward, forced, or guilt-driven
+                            </li>
+                            <li className="problem-item">
+                                For bad habits, <strong>shame stops honesty</strong>, so people hide instead of improving
+                            </li>
+                        </ul>
+
+                        <div className="result-box">
+                            <p>
+                                <strong>Result:</strong> Most habit apps only track failure <em>after</em> it happens — they don't prevent it.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // Insight Component
+        const Insight = () => {
+            const successCriteria = [
+                'The cue is obvious',
+                'The action is easy',
+                'The decision effort is near zero',
+                'The environment supports the behavior',
+                'Feedback reinforces consistency'
+            ];
+
+            return (
+                <section className="solution-section" id="insight">
+                    <div className="container-narrow">
+                        <div className="section-header">
+                            <h2 className="section-title">Our Insight: First-Principles Thinking</h2>
+                        </div>
+
+                        <div className="insight-box">
+                            <h3 className="mb-6">
+                                A habit is not a goal. A habit is a <strong>system</strong>.
+                            </h3>
+
+                            <p className="mb-4">A habit succeeds when:</p>
+                            <ul className="habit-success-list">
+                                {successCriteria.map((criterion, index) => (
+                                    <li key={index}>{criterion}</li>
+                                ))}
+                            </ul>
+
+                            <p className="mt-8" style={{ fontWeight: 500, color: 'var(--color-text-primary)' }}>
+                                Tracking alone does none of this.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // Solution Component
+        const Solution = () => {
+            const redesignAreas = [
+                'Your environment',
+                'Your daily micro-actions',
+                'Your accountability structure'
+            ];
+
+            return (
+                <section className="problem-section" id="solution">
+                    <div className="container-narrow">
+                        <div className="section-header">
+                            <h2 className="section-title">The Solution — What Is HabitOS?</h2>
+                            <p className="section-subtitle">
+                                HabitOS is an <strong>AI-powered habit system design platform</strong>.
+                            </p>
+                        </div>
+
+                        <p className="mb-6" style={{ fontSize: 'var(--font-size-lg)', textAlign: 'center' }}>
+                            Instead of asking you to "try harder", HabitOS redesigns:
+                        </p>
+
+                        <ul className="habit-success-list">
+                            {redesignAreas.map((area, index) => (
+                                <li key={index}>{area}</li>
+                            ))}
+                        </ul>
+
+                        <p className="mt-8" style={{ textAlign: 'center', fontSize: 'var(--font-size-lg)' }}>
+                            So consistency becomes <em>automatic</em>.
+                        </p>
+
+                        <div className="quote-box">
+                            <p>We don't track habits. We design them.</p>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // HowItWorks Component
+        const HowItWorks = () => {
+            const [visibleSteps, setVisibleSteps] = React.useState([]);
+            const stepRefs = React.useRef([]);
+
+            const steps = [
+                {
+                    number: 1,
+                    title: 'Behavior Persona (Not a Profile)',
+                    description: 'Users answer a few focused questions about:',
+                    items: ['Daily routine', 'Energy levels', 'Physical environment', 'Time availability', 'Social preference'],
+                    highlight: 'HabitOS builds a behavior persona, not demographics.'
+                },
+                {
+                    number: 2,
+                    title: 'Habit Definition',
+                    description: 'Example: "I want to build the habit of playing tennis."',
+                    highlight: 'No vague goals. Just one clear habit.'
+                },
+                {
+                    number: 3,
+                    title: 'AI Habit Decomposition',
+                    description: 'HabitOS breaks the habit into:',
+                    items: [
+                        'Environment Tasks: Place tennis shoes near the door, keep racket visible',
+                        'Micro Daily Actions: 5-minute stretch, wall practice',
+                        'Cue Creation: Visual cues, location-based reminders'
+                    ],
+                    highlight: 'This removes decision fatigue.'
+                },
+                {
+                    number: 4,
+                    title: 'Shared Accountability (Without Guilt)',
+                    items: [
+                        'Matched with someone at the same stage',
+                        'Shared streak (Snapchat-style)',
+                        'If either skips 2 days → streak resets'
+                    ],
+                    highlight: "It's mutual commitment, not pressure."
+                },
+                {
+                    number: 5,
+                    title: 'Anonymous Quit Mode (For Bad Habits)',
+                    description: 'For sensitive habits like smoking, porn, junk food, or procrastination.',
+                    items: [
+                        'Track progress anonymously',
+                        'Share struggles without identity',
+                        'Get judgment-free support'
+                    ],
+                    highlight: 'Shame removed. Honesty unlocked.'
+                },
+                {
+                    number: 6,
+                    title: 'Local Environment Intelligence',
+                    description: 'HabitOS connects habits to the real world:',
+                    items: [
+                        'Nearby gyms, parks, courts, libraries',
+                        'Makes habits actionable today, not someday'
+                    ]
+                }
+            ];
+
+            React.useEffect(() => {
+                const observer = new IntersectionObserver(
+                    (entries) => {
+                        entries.forEach((entry) => {
+                            if (entry.isIntersecting) {
+                                const index = stepRefs.current.indexOf(entry.target);
+                                if (index !== -1 && !visibleSteps.includes(index)) {
+                                    setVisibleSteps((prev) => [...prev, index]);
+                                }
+                            }
+                        });
+                    },
+                    { threshold: 0.2, rootMargin: '0px 0px -100px 0px' }
+                );
+
+                stepRefs.current.forEach((ref) => {
+                    if (ref) observer.observe(ref);
+                });
+
+                return () => observer.disconnect();
+            }, []);
+
+            return (
+                <section className="flow-section" id="how-it-works">
+                    <div className="container">
+                        <div className="section-header">
+                            <h2 className="section-title">How HabitOS Works</h2>
+                            <p className="section-subtitle">A systematic approach to building habits that last</p>
+                        </div>
+
+                        <div className="flow-steps">
+                            {steps.map((step, index) => (
+                                <div
+                                    key={step.number}
+                                    ref={(el) => stepRefs.current[index] = el}
+                                    className={`flow-step ${visibleSteps.includes(index) ? 'visible' : ''}`}
+                                >
+                                    <div className="step-number">{step.number}</div>
+                                    <div className="step-content">
+                                        <h3>{step.title}</h3>
+                                        {step.description && <p>{step.description}</p>}
+                                        {step.items && (
+                                            <ul>
+                                                {step.items.map((item, i) => (
+                                                    <li key={i}>{item}</li>
+                                                ))}
+                                            </ul>
+                                        )}
+                                        {step.highlight && (
+                                            <div className="step-highlight">{step.highlight}</div>
+                                        )}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // Features Component
+        const Features = () => {
+            const features = [
+                {
+                    icon: '🧠',
+                    title: 'AI-Powered Habit Design',
+                    description: 'Intelligent system design that breaks habits into actionable components'
+                },
+                {
+                    icon: '🏠',
+                    title: 'Environment-First Tasks',
+                    description: 'Design your physical space to support your habits automatically'
+                },
+                {
+                    icon: '⚡',
+                    title: 'Micro-Action Breakdown',
+                    description: 'Remove decision fatigue with clear, tiny daily actions'
+                },
+                {
+                    icon: '🤝',
+                    title: 'Mutual Accountability',
+                    description: 'Shared streaks that build commitment without guilt'
+                },
+                {
+                    icon: '🔒',
+                    title: 'Anonymous Quit Mode',
+                    description: 'Track sensitive habits privately, without shame or judgment'
+                },
+                {
+                    icon: '📍',
+                    title: 'Local Intelligence',
+                    description: 'Connect to nearby resources to make habits actionable today'
+                }
+            ];
+
+            return (
+                <section className="features-section" id="features">
+                    <div className="container">
+                        <div className="section-header">
+                            <h2 className="section-title">Key Features at a Glance</h2>
+                        </div>
+
+                        <div className="features-grid">
+                            {features.map((feature, index) => (
+                                <div key={index} className="feature-card">
+                                    <div className="feature-icon">{feature.icon}</div>
+                                    <h4>{feature.title}</h4>
+                                    <p>{feature.description}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // Comparison Component
+        const Comparison = () => {
+            const comparisons = [
+                { traditional: 'Track behavior', habitos: 'Design behavior systems' },
+                { traditional: 'Motivation reminders', habitos: 'Environment cues' },
+                { traditional: 'Individual streaks', habitos: 'Shared commitment' },
+                { traditional: 'Guilt-based failure', habitos: 'Judgment-free recovery' },
+                { traditional: 'Ignore bad habits', habitos: 'Anonymous quit support' }
+            ];
+
+            return (
+                <section className="comparison-section" id="comparison">
+                    <div className="container">
+                        <div className="section-header">
+                            <h2 className="section-title">How HabitOS Is Different</h2>
+                        </div>
+
+                        <table className="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>Traditional Habit Apps</th>
+                                    <th>HabitOS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {comparisons.map((row, index) => (
+                                    <tr key={index}>
+                                        <td>{row.traditional}</td>
+                                        <td>{row.habitos}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            );
+        };
+
+        // Mission Component
+        const Mission = () => {
+            return (
+                <section className="mission-section" id="mission">
+                    <div className="container">
+                        <div className="mission-content">
+                            <div className="mission-card">
+                                <h3>Our Mission</h3>
+                                <p>
+                                    To help people build lasting habits and quit harmful ones by designing systems
+                                    that make consistency easy, natural, and judgment-free.
+                                </p>
+                            </div>
+
+                            <div className="mission-card">
+                                <h3>Our Vision</h3>
+                                <p>
+                                    To become the world's most trusted behavior-design platform — the operating
+                                    system for human behavior.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // WaitlistCTA Component
+        const WaitlistCTA = ({ onSubmit }) => {
+            const [email, setEmail] = React.useState('');
+            const [isLoading, setIsLoading] = React.useState(false);
+
+            const handleSubmit = async (e) => {
+                e.preventDefault();
+
+                if (!email.trim()) {
+                    onSubmit('Please enter a valid email address', 'error');
+                    return;
+                }
+
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    onSubmit('Please enter a valid email address', 'error');
+                    return;
+                }
+
+                setIsLoading(true);
+
+                // Determine API URL based on environment
+                const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+                    ? 'http://localhost:5000'  // Local Flask Server
+                    : '';                      // Vercel (Relative path)
+
+                try {
+                    const response = await fetch(`${API_BASE}/api/waitlist`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email })
+                    });
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        onSubmit("🎉 You're on the waitlist! We'll be in touch soon.", 'success');
+                        setEmail('');
+                    } else {
+                        onSubmit(data.error || 'Something went wrong', 'error');
+                    }
+                } catch (error) {
+                    onSubmit('Failed to connect to server. Please check your connection.', 'error');
+                    console.error('Submission error:', error);
+                } finally {
+                    setIsLoading(false);
+                }
+            };
+
+            return (
+                <section className="cta-section" id="waitlist">
+                    <div className="container-narrow">
+                        <h2 className="mb-6">Help Us Validate the Future of Habit Building</h2>
+                        <p className="mb-4" style={{ fontSize: 'var(--font-size-xl)' }}>
+                            Join the HabitOS waitlist
+                        </p>
+
+                        <ul className="cta-benefits">
+                            <li>✓ Get early access</li>
+                            <li>✓ Shape the product</li>
+                            <li>✓ Join the first behavior-design community</li>
+                        </ul>
+
+                        <form className="waitlist-form" onSubmit={handleSubmit}>
+                            <input
+                                type="email"
+                                placeholder="Enter your email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                aria-label="Email address"
+                                disabled={isLoading}
+                            />
+                            <button type="submit" disabled={isLoading}>
+                                {isLoading ? 'Joining...' : 'Join Waitlist'}
+                            </button>
+                        </form>
+                    </div>
+                </section>
+            );
+        };
+
+        // Footer Component
+        const Footer = () => {
+            return (
+                <footer>
+                    <div className="container">
+                        <p className="footer-tagline">Not another habit tracker.</p>
+                        <p className="footer-subtitle">The operating system for human behavior.</p>
+                        <div className="footer-logo">HabitOS</div>
+                    </div>
+                </footer>
+            );
+        };
+
+        // Main App Component
+        const App = () => {
+            const [notification, setNotification] = React.useState(null);
+
+            const handleNavigate = (sectionId) => {
+                const element = document.getElementById(sectionId);
+                if (element) {
+                    const navHeight = document.querySelector('nav').offsetHeight;
+                    const targetPosition = element.offsetTop - navHeight;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            };
+
+            const showNotification = (message, type = 'success') => {
+                setNotification({ message, type });
+
+                setTimeout(() => {
+                    setNotification(null);
+                }, 4000);
+            };
+
+            return (
+                <>
+                    <Navbar onNavigate={handleNavigate} />
+                    <Hero onNavigate={handleNavigate} />
+                    <Problem />
+                    <Insight />
+                    <Solution />
+                    <HowItWorks />
+                    <Features />
+                    <Comparison />
+                    <Mission />
+                    <WaitlistCTA onSubmit={showNotification} />
+                    <Footer />
+
+                    {notification && (
+                        <div className={`notification notification-${notification.type}`}>
+                            {notification.message}
+                        </div>
+                    )}
+                </>
+            );
+        };
+
+        // Render the app
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>
